@@ -1,0 +1,4 @@
+*BSIM4 130nm to 22nm model with default parameters
+* Optimal Vcc is 1V at 28nm
+.model tn nmos level=54 version=4.8.1
+.model tp pmos level=54 version=4.8.1

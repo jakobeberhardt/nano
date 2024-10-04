@@ -1,0 +1,28 @@
+* import technology model and gate design
+.INCLUDE model28nm.spi
+.INCLUDE inverter.spi
+
+* inverter instantiation
+
+x1 in inOut 1 0 inverter
+x2 inOut out 1 0 inverter 
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+
+*
+* Input wave
+*
+* 1.b.1.1.
+Vin in 0 PULSE(0 1 5ns 0.5ns 0.5ns 14.5ns 25ns)
+
+* 1.b.1.2.
+*Vin in 0 pwl(0ns 0 20s 1)
+
+.TRAN 1ns 25ns
+
+*.plot in inOut out
+
+.END

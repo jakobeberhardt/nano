@@ -1,0 +1,25 @@
+* import technology model and gate design
+
+.INCLUDE model28nm.spi
+.INCLUDE nand2.spi
+
+* nand instantiation
+
+x1 in0 in1 out0 1 0 nand2
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+
+*
+* Input wave
+*
+Vin0 in0 0 pwl(0ns 0 15ns 1 20ns 1 35ns 0)
+Vin1 in1 0 pwl(0ns 0 15ns 1 20ns 1 35ns 0)
+
+.TRAN 1ns 40ns
+
+*.plot in0 in1 out0
+
+.END

@@ -1,0 +1,15 @@
+*2-input NAND gate 
+*Output is S 
+
+.SUBCKT nand2 A B S 1 0
+
+*pull-up transistors 
+M1   1 A S 1 tp L=56n W=448n AS=75.3f AD=75.3f PS=1.23u PD=1.23u 
+M2   1 B S 1 tp L=56n W=448n AS=75.3f AD=75.3f PS=1.23u PD=1.23u
+
+*pull-down transistors 
+M3   S B I1 0 tn L=56n W=224n AS=37.6f AD=37.6f PS= 784n PD=784n  
+M4   I1 A 0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS= 784n PD=784n 
+
+.ENDS nand2 
+
