@@ -5,16 +5,15 @@
 
 *pull-up transistors 
 * 1.b.
-*M1   1 In Out 1 tp L=56n W=56n AS=3.136f AD=3.136f PS=224n  PD=224n 
+* M1   1 In Out 1 tp L=56n W=56n AS=9.408f AD=9.408f PS=448n  PD=448n 
 
 * 2
-*M1   1 In Out 1 tp L=56n W=112n AS=6.27f AD=6.27f PS=336n PD=336n
-M1   1 In Out 1 tp L=56n W=100n AS=5.6f AD=5.6f PS=312n PD=312n
+* M1   1 In Out 1 tp L=56n W=100n AS=16.8f AD=16f PS=536n PD=536n
 
 
 
 *pull-down transistors 
-M4   Out In 0 0 tn L=56n W=56n AS=3.136f AD=3.136f PS=224n  PD=224n 
+M4   Out In 0 0 tn L=56n W=56n AS=9.408f AD=9.408f PS=448n  PD=448n 
 
 .ENDS inverter 
 
