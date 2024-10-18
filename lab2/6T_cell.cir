@@ -1,0 +1,26 @@
+.INCLUDE model28nm.spi
+.INCLUDE 6T_cell.spi
+
+X1    WL BL_Bad nBL_bad  1 0 6T_cell M = 31
+X2    0  BL     nBL      1 0 6T_cell M = 255
+Xcell WL BL     nBL      1 0 6T_cell
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+.IC V(BL) = 1V
+.IC V(nBL) = 1V
+.IC V(Xcell.Q) = 1V
+.IC V(Xcell.nQ) = 0V
+
+*
+* Input wave
+*
+Vin0 WL 0 pwl(0ns 0 0.5ns 1 5ns 1 5.5ns 0)
+
+.TRAN 1ns 10ns
+
+*.plot in0 in1 in2 out0
+
+.END
