@@ -9,17 +9,20 @@ Xcell WL BL     nBL      1 0 6T_cell
 * 1v between VDD (1) and GND (0)
 *
 VCC 1 0 DC 1.0V
-.IC V(BL) = 1V
-.IC V(nBL) = 1V
+.IC V(BL) = 0.5V
+.IC V(nBL) = 0.5V
 .IC V(Xcell.Q) = 1V
 .IC V(Xcell.nQ) = 0V
 
 *
 * Input wave
 *
-Vin0 WL 0 pwl(0ns 0 0.5ns 1 5ns 1 5.5ns 0)
+Vin0 WL 0 pwl(0.5ns 0 1ns 1 9ns 1 9.5ns 0)
+EVextra Vdiff 0 VOL='V(BL)-V(nBL)'
 
 .TRAN 1ns 10ns
+.MEASURE TRAN time_diff TRIG V(WL) VAL=0.2 CROSS=1 TARG V(Vdiff) VAL=0.5 CROSS=1
+
 
 *.plot in0 in1 in2 out0
 
