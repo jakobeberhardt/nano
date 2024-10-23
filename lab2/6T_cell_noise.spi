@@ -1,0 +1,15 @@
+*6T_cell
+
+.SUBCKT 6T_cell_noise WL BL nBL 1 0
+
+*pull-down transistors
+M1   QBN  QN   0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS=784n PD=784n
+M3    Q QB   0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS=784n PD=784n
+M5   QBN WL nBL 0 tn L=56n W=112n AS=18.8f AD=18.8f PS=560n PD=560n
+M6    Q WL  BL 0 tn L=56n W=112n AS=18.8f AD=18.8f PS=560n PD=560n
+
+*pull-up transistors
+M2   1  QN QBN 1 tp L=84n W=84n AS=14.1f AD=14.1f PS=504n PD=504n
+M4   1 QB  Q 1 tp L=84n W=84n AS=14.1f AD=14.1f PS=504n PD=504n
+
+.ENDS 6T_cell_noise

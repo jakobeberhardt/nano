@@ -9,10 +9,12 @@ Xcell WL BL     nBL      1 0 6T_cell
 * 1v between VDD (1) and GND (0)
 *
 VCC 1 0 DC 1.0V
-.IC V(BL) = 0.5V
-.IC V(nBL) = 0.5V
-.IC V(Xcell.Q) = 1V
-.IC V(Xcell.nQ) = 0V
+.IC V(BL) = 1.0V
+.IC V(nBL) = 1.0V
+.IC V(BL_Bad) = 1.0V
+.IC V(nBL_bad) = 1.0V
+.IC V(Xcell.Q) = 1.0V
+.IC V(Xcell.nQ) = 0.0V
 
 *
 * Input wave
