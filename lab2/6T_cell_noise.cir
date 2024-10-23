@@ -1,9 +1,9 @@
 .INCLUDE model28nm.spi
 .INCLUDE 6T_cell_noise.spi
 
-X1    WL BL_Bad nBL_bad  1 0 6T_cell_noise M = 31
-X2    0  BL     nBL      1 0 6T_cell_noise M = 255
-Xcell WL BL     nBL      1 0 6T_cell_noise
+X1    WL BL_Bad nBL_bad QN QB Q QBN  1 0 6T_cell_noise M = 31
+X2    0  BL     nBL QN QB Q QBN      1 0 6T_cell_noise M = 255
+Xcell WL BL     nBL QN QB Q QBN     1 0 6T_cell_noise
 
 *
 * 1v between VDD (1) and GND (0)
@@ -13,22 +13,20 @@ VCC 1 0 DC 5.0V
 .IC V(nBL) = 1.0V
 .IC V(BL_Bad) = 1.0V
 .IC V(nBL_Bad) = 1.0V
-.IC V(Xcell.Q) = 1.0V
-.IC V(Xcell.QB) = 0.0V
-.IC V(Xcell.QN) = 0.0V
-.IC V(Xcell.QBN) = 1.0V
+.IC V(Q) = 1.0V
+.IC V(QB) = 0.0V
 
 *
 * Input wave
 *
-VWL WL 0 DC 0V
-EVNOISER Xcell.Q Xcell.QN VOL='V(Xcell.QB)-V(Xcell.QBN)' 
+VWL WL 1 DC 0V
+EVNOISER Q QN VOL='V(QB)-V(QBN)' 
 
 * Part Graphic 
-VVNOISEL Xcell.QB Xcell.QBN pwl(0ns 0 10ns 0 15ns 1.0 20ns 1.0 25ns 0) 
+VVNOISEL QB QBN pwl(0ns 0 10ns 0 15ns 1.0 20ns 1.0 25ns 0) 
 
 * Part Analytic 
-*VVNOISE Xcell.QBN Xcell.QB DC 0V
+*VVNOISE QBN QB DC 0V
 
 .TRAN 1ns 30ns
 
@@ -50,6 +48,7 @@ VVNOISEL Xcell.QB Xcell.QBN pwl(0ns 0 10ns 0 15ns 1.0 20ns 1.0 25ns 0)
 *.endc
 
 * plot V(Xcell.Q) V(Xcell.QBN) V(Xcell.QB) V(Xcell.QN)
+* plot V(Xcell.QBN) V(Xcell.QB)
 
 
 .END
