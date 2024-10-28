@@ -1,0 +1,34 @@
+.INCLUDE model28nm.spi
+.INCLUDE 8T_cell_noise.spi
+
+X1    WWL RWL RBL_bad WBL_bad nWBL_bad 1 0 8T_cell_noise M = 31
+X2    0 0 RBL WBL nWBL 1 0 8T_cell_noise M = 255
+Xcell WWL RWL RBL WBL nWBL 1 0 8T_cell_noise
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+
+.IC V(RBL_bad) = 1.0V
+.IC V(WBL_bad) = 0.0V
+.IC V(nWBL_bad) = 0.0V
+.IC V(RBL) = 1.0V
+.IC V(WWL) = 0.0V
+.IC V(WBL) = 0.0V
+.IC V(nWBL) = 0.0V
+
+
+.IC V(Xcell.Q) = 1.0V
+.IC V(Xcell.nQ) = 0.0V
+
+*
+* Input wave
+*
+Vin0 RWL 0 pwl(1ns 0 2ns 1 9ns 1 9.5ns 0)
+
+.TRAN 1ns 125ns
+.MEASURE TRAN TimeAt500mV WHEN V(RBL) = 0.5V
+*.plot in0 in1 in2 out0
+
+.END
