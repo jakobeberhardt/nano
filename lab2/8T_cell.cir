@@ -1,31 +1,34 @@
 .INCLUDE model28nm.spi
 .INCLUDE 8T_cell.spi
 
-X1    WL BL_Bad nBL_bad  1 0 8T_cell M = 31
-X2    0  BL     nBL      1 0 8T_cell M = 255
-Xcell WL BL     nBL      1 0 8T_cell
+X1    WWL RWL RBL_bad WBL_bad nWBL_bad 1 0 8T_cell M = 31
+X2    0 0 RBL WBL nWBL 1 0 8T_cell M = 255
+Xcell WWL RWL RBL WBL nWBL 1 0 8T_cell
 
 *
 * 1v between VDD (1) and GND (0)
 *
 VCC 1 0 DC 1.0V
-.IC V(BL) = 1.0V
-.IC V(nBL) = 1.0V
-.IC V(BL_Bad) = 1.0V
-.IC V(nBL_bad) = 1.0V
+
+.IC V(RBL_bad) = 1.0V
+.IC V(WBL_bad) = 0.0V
+.IC V(nWBL_bad) = 0.0V
+.IC V(RBL) = 1.0V
+.IC V(WWL) = 0.0V
+.IC V(WBL) = 0.0V
+.IC V(nWBL) = 0.0V
+
+
 .IC V(Xcell.Q) = 1.0V
 .IC V(Xcell.nQ) = 0.0V
 
 *
 * Input wave
 *
-Vin0 WL 0 pwl(0.5ns 0 1ns 1 9ns 1 9.5ns 0)
-EVextra Vdiff 0 VOL='V(BL)-V(nBL)'
+Vin0 RWL 0 pwl(1ns 0 2ns 1 9ns 1 9.5ns 0)
 
-.TRAN 1ns 10ns
-.MEASURE TRAN time_diff TRIG V(WL) VAL=0.2 CROSS=1 TARG V(Vdiff) VAL=0.5 CROSS=1
-
-
+.TRAN 1ns 125ns
+.MEASURE TRAN TimeAt500mV WHEN V(RBL) = 0.5V
 *.plot in0 in1 in2 out0
 
 .END

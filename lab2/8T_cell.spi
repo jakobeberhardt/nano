@@ -1,6 +1,6 @@
 *8T_cell
 
-.SUBCKT 8T_cell WWL RWL RBL WBL nWBL 1 0
+.SUBCKT 8T_cell WWL RWL RBL WBL nWBL  1 0
 
 *pull-down transistors
 M1   nQ  Q   0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS=784n PD=784n
