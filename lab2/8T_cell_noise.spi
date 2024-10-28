@@ -5,10 +5,10 @@
 *pull-down transistors
 M1   QBN  QN   0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS=784n PD=784n
 M3    Q QB   0 0 tn L=56n W=224n AS=37.6f AD=37.6f PS=784n PD=784n
-M5   QBN WWL WBL 0 tn L=56n W=112n AS=18.8f AD=18.8f PS=560n PD=560n
+M5   QBN WWL nWBL 0 tn L=56n W=112n AS=18.8f AD=18.8f PS=560n PD=560n
 M6    Q WWL  WBL 0 tn L=56n W=112n AS=18.8f AD=18.8f PS=560n PD=560n
-M7 	  X RWL RBL 0 tn L=56n W=448n AS=75.3f AD=75.3f PS=1.23µ PD=1.23u
-M8    X Q 0 0  tn L=56n W=448n AS=75.3f AD=75.3f PS=1.23µ PD=1.23u
+M7 	  X RWL RBL 0 tn L=56n W=448n AS=75.3f AD=75.3f PS=1.23u PD=1.23u
+M8    X Q 0 0  tn L=56n W=448n AS=75.3f AD=75.3f PS=1.23u PD=1.23u
 
 *pull-up transistors
 M2   1  QN QBN 1 tp L=84n W=84n AS=14.1f AD=14.1f PS=504n PD=504n
