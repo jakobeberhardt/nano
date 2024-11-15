@@ -1,0 +1,34 @@
+.INCLUDE model28nm.spi
+.INCLUDE 8T_cell.spi
+
+X1    WWL RWL RBL_bad WBL_bad nWBL_bad 1 0 8T_cell M = 31
+X2    0 0 RBL WBL nWBL 1 0 8T_cell M = 255
+Xcell WWL RWL RBL WBL nWBL 1 0 8T_cell
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+
+.IC V(RBL_bad) = 0.0V
+.IC V(WBL_bad) = 0.0V
+.IC V(nWBL_bad) = 1.0V
+.IC V(RBL) = 0.0V
+.IC V(WWL) = 1.0V
+.IC V(WBL) = 0.0V
+.IC V(nWBL) = 1.0V
+.IC V(RWL) = 0.0V
+
+.IC V(Xcell.Q) = 0.0V
+.IC V(Xcell.nQ) = 1.0V
+
+*
+* Input wave
+*
+*Vin0 RWL 0 pwl(0.5ns 0 1ns 0 39ns 0 39.5ns 0)
+
+.TRAN 1ns 40ns
+.measure TRAN iavg AVG i(VCC) FROM=0ns TO=40ns
+.measure TRAN power PARAM='iavg*1.0'
+
+.END

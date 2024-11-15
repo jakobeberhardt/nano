@@ -1,0 +1,29 @@
+.INCLUDE model28nm.spi
+.INCLUDE 6T_cell.spi
+
+X1    WL BL_Bad nBL_bad  1 0 6T_cell M = 31
+X2    0  BL     nBL      1 0 6T_cell M = 255
+Xcell WL BL     nBL      1 0 6T_cell
+
+*
+* 1v between VDD (1) and GND (0)
+*
+VCC 1 0 DC 1.0V
+.IC V(BL) = 0.0V
+.IC V(nBL) = 1.0V
+.IC V(BL_Bad) = 0.0V
+.IC V(nBL_bad) = 1.0V
+.IC V(Xcell.Q) = 1.0V
+.IC V(Xcell.nQ) = 0.0V
+
+*
+* Input wave
+*
+Vin0 WL 0 pwl(0.5ns 0 1ns 1 39ns 1 39.5ns 0)
+
+.TRAN 1ns 40ns
+
+.measure TRAN iavg AVG i(VCC) FROM=0ns TO=40ns
+.measure TRAN power PARAM='iavg*1.0'
+
+.END

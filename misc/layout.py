@@ -5,7 +5,7 @@ def si_prefix(value):
     exponent = int(math.floor(math.log10(abs(value)) // 3) * 3)
     prefix = {
         -24: "y", -21: "z", -18: "a", -15: "f", -12: "p", -9: "n",
-        -6: "µ", -3: "m", 0: "", 3: "k", 6: "M", 9: "G", 12: "T", 15: "P"
+        -6: "u", -3: "m", 0: "", 3: "k", 6: "M", 9: "G", 12: "T", 15: "P"
     }
     scaled_value = value / (10 ** exponent)
     return f"{scaled_value:.3g}{prefix.get(exponent, '')}"
@@ -13,7 +13,7 @@ def si_prefix(value):
 lam = 28e-9
 
 ###
-w = 4 * lam
+w = 16 * lam
 l = 2 * lam
 ###
 
