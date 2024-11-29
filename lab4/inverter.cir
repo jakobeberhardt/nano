@@ -1,0 +1,51 @@
+.INCLUDE model28nm.spi
+
+.SUBCKT inv In Out 1 0
+M1  1 In Out 1 tp   L=56n W=56n AS=9.5f AD=9.5f PS=448n PD=448n
+M2  Out In 0  0 tn L=56n W=112n AS=19f AD=19f PS=560n PD=560n
+.ENDS inv
+
+* Ring instantiation
+
+x1 In      InOut12  1 0 inv
+x2 InOut12 InOut23  1 0 inv
+x3 InOut23 InOut34  1 0 inv
+x4 InOut34 InvOut   1 0 inv
+C1 InvOut  COut     1UF
+
+VCC 1 0 DC 1.0V
+
+Vin In 0 pwl(0ns 0 0.5ns 1 1ns 0 1.5ns 1)
+
+.TRAN 0.5ns 1.5ns
+
+
+.control
+* Define Vth variations for NMOS (tn) and PMOS (tp)
+let tn_variations = {-0.2, 0, +0.2}  * Adjust for desired Vth variations
+let tp_variations = {-0.2, 0, +0.2}  * Adjust for desired Vth variations
+
+foreach tn_v ($tn_variations) {
+    foreach tp_v ($tp_variations) {
+        * Apply Vth modifications for both NMOS and PMOS
+        altermod @tn[vth0] = @tn[vth0] * (1 + tn_v)
+        altermod @tp[vth0] = @tp[vth0] * (1 + tp_v)
+
+        * Print the current Vth variations
+        print "TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v
+
+        * Run the simulation
+        run
+
+        * Measure and print tpdr and tpdf for this Vth combination
+        .measure tran tpdr trig v(InOut12) val=0.5 fall=1 targ v(InOut23) val=0.5 rise=1
+        .measure tran tpdf trig v(InOut12) val=0.5 rise=1 targ v(InOut23) val=0.5 fall=1
+
+        * Print the measured values of tpdr and tpdf
+        print "tpdr for TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v, " is ", tpdr
+        print "tpdf for TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v, " is ", tpdf
+    }
+}
+.endc
+
+.END
