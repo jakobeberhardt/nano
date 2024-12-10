@@ -15,37 +15,21 @@ C1 InvOut  COut     1UF
 
 VCC 1 0 DC 1.0V
 
-Vin In 0 pwl(0ns 0 0.5ns 1 1ns 0 1.5ns 1)
+Vin In 0 pwl(0ns 0 0.5ns 1 9.5ns 1 10ns 0)
 
-.TRAN 0.5ns 1.5ns
+.TRAN 0.5ns 10ns
 
 
 .control
-* Define Vth variations for NMOS (tn) and PMOS (tp)
-let tn_variations = {-0.2, 0, +0.2}  * Adjust for desired Vth variations
-let tp_variations = {-0.2, 0, +0.2}  * Adjust for desired Vth variations
-
-foreach tn_v ($tn_variations) {
-    foreach tp_v ($tp_variations) {
-        * Apply Vth modifications for both NMOS and PMOS
-        altermod @tn[vth0] = @tn[vth0] * (1 + tn_v)
-        altermod @tp[vth0] = @tp[vth0] * (1 + tp_v)
-
-        * Print the current Vth variations
-        print "TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v
-
-        * Run the simulation
-        run
-
-        * Measure and print tpdr and tpdf for this Vth combination
-        .measure tran tpdr trig v(InOut12) val=0.5 fall=1 targ v(InOut23) val=0.5 rise=1
-        .measure tran tpdf trig v(InOut12) val=0.5 rise=1 targ v(InOut23) val=0.5 fall=1
-
-        * Print the measured values of tpdr and tpdf
-        print "tpdr for TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v, " is ", tpdr
-        print "tpdf for TN Vth variation: ", tn_v, " TP Vth variation: ", tp_v, " is ", tpdf
-    }
-}
+run
+*set M1 vth0=@tn[vth0]
+*set M2 vth0=@tn[vth0]
+altermod @tn[vth0] = @tn[vth0] * 0.8
+altermod @tp[vth0] = @tp[vth0] * 1.2
+run
 .endc
+
+.measure tran tpdr trig v(InOut12) val=0.5 fall=1 targ v(InOut23) val=0.5 rise=1
+.measure tran tpdf trig v(InOut23) val=0.5 rise=1 targ v(InOut34) val=0.5 fall=1
 
 .END
